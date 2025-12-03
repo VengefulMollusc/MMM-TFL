@@ -65,6 +65,7 @@
             stationId: "940GZZLUSFS", // Southfields station
             // To find station IDs, use: https://api.tfl.gov.uk/StopPoint/Search?query=STATION_NAME
             maxDepartures: 5, // Show 5 upcoming departures
+            showLineBadge: false, // show line badge next to departures
             updateInterval: 30000, // Update every 30 seconds when active
             activeSchedule: {
                 activeDays: [1, 2, 3, 4, 5], // Monday-Friday

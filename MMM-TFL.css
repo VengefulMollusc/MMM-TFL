@@ -67,14 +67,14 @@
 
 .departures-table .line-name {
     font-weight: bold;
-    padding: 3px 8px;
-    border-radius: 3px;
-    text-align: center;
+    padding: 3px;
     min-width: 80px;
+    border-radius: 6px;
+    text-align: center;
     white-space: nowrap;
 }
 
-.departures-table .destination {
+.departures-table .destination:not(:first-child) {
     padding-left: 10px;
 }
 
@@ -171,11 +171,12 @@
 }
 
 .line-name-display {
-    font-size: 18px;
     font-weight: bold;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 3px;
+    min-width: 80px;
+    border-radius: 6px;
     margin-bottom: 10px;
+    text-align: center;
     display: inline-block;
 }
 

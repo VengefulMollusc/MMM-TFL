@@ -22,6 +22,7 @@ Module.register("MMM-TFL", {
             enabled: false,
             stationId: "",
             maxDepartures: 5,
+            showLineBadge: false,
             updateInterval: 30000, // 30 seconds
             activeSchedule: {
                 activeDays: [0, 1, 2, 3, 4, 5, 6],
@@ -46,7 +47,7 @@ Module.register("MMM-TFL", {
         }
     },
 
-    start: function() {
+    start: function () {
         Log.info("Starting module: " + this.name);
         this.journeyData = []; // Changed to array for multiple destinations
         this.departuresData = null;
@@ -68,12 +69,12 @@ Module.register("MMM-TFL", {
         this.sendSocketNotification("SET_CONFIG", this.config);
     },
 
-    getStyles: function() {
+    getStyles: function () {
         return ["MMM-TFL.css"];
     },
 
-    socketNotificationReceived: function(notification, payload) {
-        switch(notification) {
+    socketNotificationReceived: function (notification, payload) {
+        switch (notification) {
             case "JOURNEY_DATA":
                 this.journeyData = payload;
                 this.journeyError = null;
@@ -129,7 +130,7 @@ Module.register("MMM-TFL", {
         }
     },
 
-    getDom: function() {
+    getDom: function () {
         const wrapper = document.createElement("div");
         wrapper.className = "mmm-tfl-wrapper";
 
@@ -166,7 +167,7 @@ Module.register("MMM-TFL", {
         return wrapper;
     },
 
-    createJourneySection: function() {
+    createJourneySection: function () {
         const section = document.createElement("div");
         section.className = "tfl-section journey-section";
 
@@ -188,7 +189,7 @@ Module.register("MMM-TFL", {
             inactive.className = "inactive-message small dimmed";
             inactive.innerHTML = "No active destinations";
             if (this.lastUpdate.journey) {
-                inactive.innerHTML +=" (Last update: " + this.formatTime(this.lastUpdate.journey) + ")";
+                inactive.innerHTML += " (Last update: " + this.formatTime(this.lastUpdate.journey) + ")";
             }
             section.appendChild(inactive);
             return section;
@@ -211,7 +212,7 @@ Module.register("MMM-TFL", {
         return section;
     },
 
-    createJourneyContent: function(journey) {
+    createJourneyContent: function (journey) {
         const content = document.createElement("div");
         content.className = "journey-content";
 
@@ -257,7 +258,7 @@ Module.register("MMM-TFL", {
         return content;
     },
 
-    createDeparturesSection: function() {
+    createDeparturesSection: function () {
         const section = document.createElement("div");
         section.className = "tfl-section departures-section";
 
@@ -279,7 +280,7 @@ Module.register("MMM-TFL", {
             inactive.className = "inactive-message small dimmed";
             inactive.innerHTML = "Outside active hours";
             if (this.lastUpdate.departures) {
-                inactive.innerHTML +=" (Last update: " + this.formatTime(this.lastUpdate.departures) + ")";
+                inactive.innerHTML += " (Last update: " + this.formatTime(this.lastUpdate.departures) + ")";
             }
             section.appendChild(inactive);
 
@@ -314,21 +315,25 @@ Module.register("MMM-TFL", {
         return section;
     },
 
-    createDeparturesContent: function() {
+    createDeparturesContent: function () {
         const table = document.createElement("table");
         table.className = "departures-table small";
+
+        console.log(this.departuresData);
 
         this.departuresData.forEach(departure => {
             const row = document.createElement("tr");
 
-            const lineCell = document.createElement("td");
-            lineCell.className = "line-name line-" + departure.lineId;
-            lineCell.innerHTML = departure.lineName;
-            row.appendChild(lineCell);
+            if (this.config.departures.showLineBadge) {
+                const lineCell = document.createElement("td");
+                lineCell.className = "line-name line-" + departure.lineId;
+                lineCell.innerHTML = departure.lineName;
+                row.appendChild(lineCell);
+            }
 
             const destCell = document.createElement("td");
             destCell.className = "destination";
-            destCell.innerHTML = departure.destination;
+            destCell.innerHTML = departure.towards;
             row.appendChild(destCell);
 
             const platformCell = document.createElement("td");
@@ -342,7 +347,7 @@ Module.register("MMM-TFL", {
             if (minutes < 1) {
                 timeCell.innerHTML = "Due";
             } else {
-            timeCell.innerHTML = minutes + " min";
+                timeCell.innerHTML = minutes + " min";
             }
             row.appendChild(timeCell);
 
@@ -352,7 +357,7 @@ Module.register("MMM-TFL", {
         return table;
     },
 
-    createLineStatusSection: function() {
+    createLineStatusSection: function () {
         const section = document.createElement("div");
         section.className = "tfl-section line-status-section";
 
@@ -374,7 +379,7 @@ Module.register("MMM-TFL", {
             inactive.className = "inactive-message small dimmed";
             inactive.innerHTML = "Outside active hours";
             if (this.lastUpdate.lineStatus) {
-                inactive.innerHTML +=" (Last update: " + this.formatTime(this.lastUpdate.lineStatus) + ")";
+                inactive.innerHTML += " (Last update: " + this.formatTime(this.lastUpdate.lineStatus) + ")";
             }
             section.appendChild(inactive);
 
@@ -401,7 +406,7 @@ Module.register("MMM-TFL", {
         return section;
     },
 
-    createLineStatusContent: function() {
+    createLineStatusContent: function () {
         const content = document.createElement("div");
         content.className = "line-status-content";
 
@@ -441,7 +446,7 @@ Module.register("MMM-TFL", {
         return content;
     },
 
-    formatDuration: function(minutes) {
+    formatDuration: function (minutes) {
         if (minutes < 60) {
             return minutes + " min";
         }
@@ -450,7 +455,7 @@ Module.register("MMM-TFL", {
         return hours + "h " + mins + "m";
     },
 
-    formatTime: function(date) {
+    formatTime: function (date) {
         return date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
     }
 });

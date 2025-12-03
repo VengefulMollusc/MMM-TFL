@@ -1,0 +1,257 @@
+.mmm-tfl-wrapper {
+    text-align: left;
+}
+
+/* Section Styling */
+.tfl-section {
+    margin-bottom: 20px;
+}
+
+.tfl-section.inactive {
+    opacity: 0.6;
+}
+
+.section-header {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #666;
+    padding-bottom: 5px;
+}
+
+/* Journey Time Section */
+.journey-content {
+    margin-top: 10px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid O#444;
+}
+
+.journey-content:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.journey-destination-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0098D4;
+    /* TFL blue */
+    margin-bottom: 5px;
+}
+
+.journey-duration {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.journey-route {
+    margin-bottom: 5px;
+}
+
+.journey-walking {
+    font-style: italic;
+}
+
+/* Departures Section */
+.departures-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.departures-table td {
+    padding: 5px 10px 5px 0;
+    vertical-align: middle;
+}
+
+.departures-table .line-name {
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-align: center;
+    min-width: 80px;
+    white-space: nowrap;
+}
+
+.departures-table .destination {
+    padding-left: 10px;
+}
+
+.departures-table .platform {
+    text-align: center;
+    color: #999;
+}
+
+.departures-table .time {
+    text-align: right;
+    font-weight: bold;
+    white-space: nowrap;
+}
+
+/* TFL Line Colors */
+.line-bakerloo {
+    background-color: O#B36305;
+    color: white;
+}
+
+.line-central {
+    background-color: #E32017;
+    color: white;
+}
+
+.line-circle {
+    background-color: #FFD300;
+    color: #113892;
+}
+
+.line-district {
+    background-color: #00782A;
+    color: white;
+}
+
+.line-hammersmith-city {
+    background-color: #F3A9BB;
+    color: #113892;
+}
+
+.line-jubilee {
+    background-color: #A0A5A9;
+    color: white;
+}
+
+.line-metropolitan {
+    background-color: #9B0056;
+    color: white;
+}
+
+.line-northern {
+    background-color: #000000;
+    color: white;
+}
+
+.line-piccadilly {
+    background-color: #003688;
+    color: white;
+}
+
+.line-victoria {
+    background-color: #0098D4;
+    color: white;
+}
+
+.line-waterloo-city {
+    background-color: #95CDBA;
+    color: #113892;
+}
+
+.line-elizabeth {
+    background-color: #7156A5;
+    color: white;
+}
+
+.line-dlr {
+    background-color: #00A4A7;
+    color: white;
+}
+
+.line-london-overground {
+    background-color: #EE7C0E;
+    color: white;
+}
+
+.line-tram {
+    background-color: #84B817;
+    color: white;
+}
+
+/* Line Status Section */
+.line-status-content {
+    margin-top: 10px;
+}
+
+.line-name-display {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.status-item {
+    margin-bottom: 10px;
+}
+
+.status-item {
+    margin-bottom: 10px;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* Status Severity Colors */
+.severity-10 {
+    /* Good Service */
+    background-color: #00782A;
+    color: white;
+}
+
+.severity-9 {
+    /* Minor Delays */
+    background-color: #FFD300;
+    color: #113892;
+}
+
+.severity-8,
+.severity-7,
+.severity-6 {
+    /* Severe Delays / Reduced Service */
+    background-color: #FF8C00;
+    color: white;
+}
+
+.severity-5,
+.severity-4,
+.severity-3 {
+    /* Part Suspended / Part Closure */
+    background-color: #E32017;
+    color: white;
+}
+
+.severity-2,
+.severity-1,
+.severity-0 {
+    /* Suspended / Closed / Special Service */
+    background-color: #000000;
+    color: white;
+}
+
+.status-reason {
+    margin-top: 5px;
+    padding-left: 10px;
+}
+
+.status-disruption {
+    margin-top: 3px;
+    padding-left: 10px;
+    color: #999;
+}
+
+/* Error and Status Messages */
+.error-message {
+    color: #E32017;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.inactive-message {
+    margin-top: 10px;
+    font-style: italic;
+}

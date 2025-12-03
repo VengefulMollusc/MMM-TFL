@@ -1,0 +1,30 @@
+{
+    "name": "mmm-tfl",
+    "version": "1.0.0",
+    "description": "MagicMirror module for Transport for London (TFL) live travel information",
+    "main": "MMM-TFL.js",
+    "author": "Your Name",
+    "license": "MIT",
+    "keywords": [
+        "MagicMirror",
+        "module",
+        "TFL",
+        "Transport for London",
+        "tube",
+        "underground",
+        "travel"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/yourusername/MMM-TFL"
+    },
+    "bugs": {
+        "url": "https://github.com/yourusername/MMM-TFL/issues"
+    },
+    "dependencies": {
+        "node-fetch": "^2.6.7"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}

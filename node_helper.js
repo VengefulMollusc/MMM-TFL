@@ -231,11 +231,10 @@ module.exports = NodeHelper.create({
             const data = await response.json();
 
             if (data && data.length > 0) {
-                const lineData = data[0];
-                const statusData = {
+                const statusesArray = data.map(lineData => ({
                     lineName: lineData.name,
                     lineId: lineData.id,
-                    statuses: lineData.lineStatuses.map(status => ({
+                    statuses: (lineData.lineStatuses || []).map(status => ({
                         statusSeverity: status.statusSeverity,
                         statusSeverityDescription: status.statusSeverityDescription,
                         reason: status.reason || null,
@@ -245,9 +244,9 @@ module.exports = NodeHelper.create({
                             additionalInfo: status.disruption.additionalInfo
                         } : null
                     }))
-                };
+                }));
 
-                this.sendSocketNotification("LINE_STATUS_DATA", statusData);
+                this.sendSocketNotification("LINE_STATUS_DATA", statusesArray);
             } else {
                 throw new Error("No line status data found");
             }

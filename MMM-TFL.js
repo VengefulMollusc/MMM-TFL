@@ -20,6 +20,7 @@ Module.register("MMM-TFL", {
 
         departures: {
             enabled: false,
+            stationName: "",
             stationId: "",
             maxDepartures: 5,
             showLineBadge: false,
@@ -264,7 +265,7 @@ Module.register("MMM-TFL", {
 
         const header = document.createElement("div");
         header.className = "section-header";
-        header.innerHTML = "Departures";
+        header.innerHTML = `${this.config.departures.stationName} departures`;
         section.appendChild(header);
 
         if (this.departuresError) {
@@ -319,7 +320,7 @@ Module.register("MMM-TFL", {
         const table = document.createElement("table");
         table.className = "departures-table small";
 
-        console.log(this.departuresData);
+        // console.log(this.departuresData);
 
         this.departuresData.forEach(departure => {
             const row = document.createElement("tr");
@@ -410,37 +411,49 @@ Module.register("MMM-TFL", {
         const content = document.createElement("div");
         content.className = "line-status-content";
 
-        const lineName = document.createElement("div");
-        lineName.className = "line-name-display line-" + this.lineStatusData.lineId;
-        lineName.innerHTML = this.lineStatusData.lineName;
-        content.appendChild(lineName);
+        // Ensure we have an array of line status entries
+        const lines = Array.isArray(this.lineStatusData) ? this.lineStatusData : [this.lineStatusData];
 
-        this.lineStatusData.statuses.forEach(status => {
-            const statusDiv = document.createElement("div");
-            statusDiv.className = "status-item";
+        lines.forEach(lineData => {
+            if (!lineData) return;
 
-            const statusBadge = document.createElement("span");
-            statusBadge.className = "status-badge severity-" + status.statusSeverity;
-            statusBadge.innerHTML = status.statusSeverityDescription;
-            statusDiv.appendChild(statusBadge);
+            const lineBlock = document.createElement("div");
+            lineBlock.className = "line-block";
 
-            if (status.reason) {
-                const reason = document.createElement("div");
-                reason.className = "status-reason small";
-                reason.innerHTML = status.reason;
-                statusDiv.appendChild(reason);
-            }
+            const lineName = document.createElement("div");
+            lineName.className = "line-name-display line-" + lineData.lineId;
+            lineName.innerHTML = lineData.lineName;
+            lineBlock.appendChild(lineName);
 
-            if (status.disruption) {
-                const disruption = document.createElement("div");
-                disruption.className = "status-disruption xsmall";
-                if (status.disruption.description) {
-                    disruption.innerHTML = status.disruption.description;
+            (lineData.statuses || []).forEach(status => {
+                const statusDiv = document.createElement("div");
+                statusDiv.className = "status-item";
+
+                const statusBadge = document.createElement("span");
+                statusBadge.className = "status-badge severity-" + status.statusSeverity;
+                statusBadge.innerHTML = status.statusSeverityDescription;
+                statusDiv.appendChild(statusBadge);
+
+                if (status.reason) {
+                    const reason = document.createElement("div");
+                    reason.className = "status-reason small";
+                    reason.innerHTML = status.reason;
+                    statusDiv.appendChild(reason);
                 }
-                statusDiv.appendChild(disruption);
-            }
 
-            content.appendChild(statusDiv);
+                if (status.disruption) {
+                    const disruption = document.createElement("div");
+                    disruption.className = "status-disruption xsmall";
+                    if (status.disruption.description) {
+                        disruption.innerHTML = status.disruption.description;
+                    }
+                    statusDiv.appendChild(disruption);
+                }
+
+                lineBlock.appendChild(statusDiv);
+            });
+
+            content.appendChild(lineBlock);
         });
 
         return content;

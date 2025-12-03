@@ -62,6 +62,7 @@
         // Shows live departures from a tube station
         departures: {
             enabled: true,
+            stationName: "Southfields",
             stationId: "940GZZLUSFS", // Southfields station
             // To find station IDs, use: https://api.tfl.gov.uk/StopPoint/Search?query=STATION_NAME
             maxDepartures: 5, // Show 5 upcoming departures
@@ -81,7 +82,7 @@
         // Shows service status for a tube line
         lineStatus: {
             enabled: true,
-            lineId: "northern", // Northern line
+            lineId: "district,northern", // Northern line
             // Valid line IDs: bakerloo, central, circle, district, hammersmith-city,
             // jubilee, metropolitan, northern, piccadilly, victoria, waterloo-city,
             // elizabeth, dlr, london-overground

@@ -8,9 +8,9 @@
     module: "MMM-TFL",
     position: "top_right", // or any other valid position
     config: {
-        // REQUIRED: Get these from https://api-portal.tfl.gov.uk/
-        apiKey: "your-api-key-here",
-        appId: "your-app-id-here",
+        // Get these from https://api-portal.tfl.gov.uk/
+        apiKey: "",
+        appId: "",
         
         // === JOURNEY TIME FEATURE =
         // Shows travel time from a single origin to multiple destinations
@@ -56,20 +56,13 @@
                     }
                 }
             ]
-
-            // LEGACY FORMAT (still supported for backward compatibility):
-            // destination: "Buckingham Palace, London SW1A 1AA",
-            // activeSchedule: {
-            //   activeDays: [1, 2, 3, 4, 5],
-            //   activeHours: { start: "07:00", end: "19:00" }
-            // }
         },
 
         // ===== STATION DEPARTURES FEATURE =====
         // Shows live departures from a tube station
         departures: {
             enabled: true,
-            stationId: "940GZZLUWLO", // Waterloo station
+            stationId: "940GZZLUSFS", // Southfields station
             // To find station IDs, use: https://api.tfl.gov.uk/StopPoint/Search?query=STATION_NAME
             maxDepartures: 5, // Show 5 upcoming departures
             updateInterval: 30000, // Update every 30 seconds when active

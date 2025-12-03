@@ -94,6 +94,7 @@ module.exports = NodeHelper.create({
 
     fetchJourneyTime: async function(config) {
         try {
+            let destinations = config.destinations;
             if (!destinations || destinations.length === 0) {
                 throw new Error("No destinations configured");
             }
@@ -133,7 +134,8 @@ module.exports = NodeHelper.create({
         try {
             const originEncoded = encodeURIComponent(origin);
             const destEncoded = encodeURIComponent(destination.address);
-            const url = `https://api.tfl.gov.uk/Journey/JourneyResults/${originEncoded}/to/${destEncoded}?app_id=${this.config.appId}&app_key=${this.config.apiKey}`;
+            const url = `https://api.tfl.gov.uk/Journey/JourneyResults/${originEncoded}/to/${destEncoded}
+                ?nationalSearch=false&journeyPreference=LeastTime&mode=tube,walking`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -170,7 +172,7 @@ module.exports = NodeHelper.create({
 
     fetchDepartures: async function(config) {
         try {
-            const url =`https://api.tfl.gov.uk/StopPoint/${config.stationId}/Arrivals?app_id=${this.config.appId}&app_key=${this.config.apikey}`;
+            const url =`https://api.tfl.gov.uk/StopPoint/${config.stationId}/Arrivals`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -184,7 +186,7 @@ module.exports = NodeHelper.create({
                 .filter(arrival => arrival.modeName === "tube")
                 .sort((a, b) => new Date(a.expectedArrival) - new Date(b.expectedArrival))
                 .slice(0, config.maxDepartures)
-                map(arrival =>({
+                .map(arrival =>({
                     LineName: arrival.lineName,
                     lineId: arrival.lineId,
                     destination: arrival.destinationName,
@@ -204,7 +206,7 @@ module.exports = NodeHelper.create({
 
     fetchLineStatus: async function(config) {
         try {
-            const url = `https://api.tfl.gov.uk/Line/${config.lineId}/Status?app_id=${this.config.appId}&app_key=${this.config.apikey}`;
+            const url = `https://api.tfl.gov.uk/Line/${config.lineId}/Status`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -232,7 +234,7 @@ module.exports = NodeHelper.create({
 
                 this.sendSocketNotification("LINE_STATUS_DATA", statusData);
             } else {
-                throw new Error("No line status data foynd");
+                throw new Error("No line status data found");
             }
         } catch (error) {
             console.error("Error fetching line status:", error);

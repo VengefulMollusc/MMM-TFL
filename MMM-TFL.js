@@ -133,11 +133,11 @@ Module.register("MMM-TFL", {
         const wrapper = document.createElement("div");
         wrapper.className = "mmm-tfl-wrapper";
 
-        if (!this.config.apikey || !this.config.appId) {
-            wrapper.innerHTML = "Please configure TFL API credentials";
-            wrapper.className = "dimmed light small";
-            return wrapper;
-        }
+        // if (!this.config.apikey || !this.config.appId) {
+        //     wrapper.innerHTML = "Please configure TFL API credentials";
+        //     wrapper.className = "dimmed light small";
+        //     return wrapper;
+        // }
 
         // Journey Time Section
         if (this.config.journey.enabled) {

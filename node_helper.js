@@ -134,8 +134,23 @@ module.exports = NodeHelper.create({
         try {
             const originEncoded = encodeURIComponent(origin);
             const destEncoded = encodeURIComponent(destination.address);
+
+            // const now = new Date();
+            // // date in format yyyymmdd
+            // const year = now.getFullYear();
+            // const month = String(now.getMonth() + 1).padStart(2, "0");
+            // const day = String(now.getDate()).padStart(2, "0");
+            // const date = `${year}${month}${day}`;
+
+            // // time in format hhmm
+            // const hh = String(now.getHours()).padStart(2, "0");
+            // const mm = String(now.getMinutes()).padStart(2, "0");
+            // const time = `${hh}${mm}`;
+            // &date=${date}&time=${time}&timeIs=Departing
+
             const url = `https://api.tfl.gov.uk/Journey/JourneyResults/${originEncoded}/to/${destEncoded}
-                ?nationalSearch=false&journeyPreference=LeastTime&mode=tube,walking`;
+                ?nationalSearch=false&journeyPreference=LeastTime
+                &mode=tube,walking&walkingSpeed=Fast`;
 
             const response = await fetch(url);
             if (!response.ok) {
@@ -187,7 +202,7 @@ module.exports = NodeHelper.create({
                 .sort((a, b) => new Date(a.expectedArrival) - new Date(b.expectedArrival))
                 .slice(0, config.maxDepartures)
                 .map(arrival =>({
-                    LineName: arrival.lineName,
+                    lineName: arrival.lineName,
                     lineId: arrival.lineId,
                     destination: arrival.destinationName,
                     platform: arrival.platformName,

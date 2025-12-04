@@ -170,7 +170,7 @@
     margin-top: 10px;
 }
 
-.line-name-display {
+/* .line-name-display {
     font-weight: bold;
     padding: 3px;
     min-width: 80px;
@@ -178,7 +178,7 @@
     margin-bottom: 10px;
     text-align: center;
     display: inline-block;
-}
+} */
 
 .status-item {
     margin-bottom: 10px;
@@ -200,14 +200,15 @@
 /* Status Severity Colors */
 .severity-10 {
     /* Good Service */
-    background-color: #00782A;
-    color: white;
+    /* background-color: #00782A;
+    color: white; */
+    font-weight: normal;
 }
 
 .severity-9 {
     /* Minor Delays */
     background-color: #FFD300;
-    color: #113892;
+    color: black;
 }
 
 .severity-8,

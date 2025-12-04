@@ -414,47 +414,46 @@ Module.register("MMM-TFL", {
         // Ensure we have an array of line status entries
         const lines = Array.isArray(this.lineStatusData) ? this.lineStatusData : [this.lineStatusData];
 
+        const table = document.createElement("table");
+        table.className = "line-status-table small";
+
         lines.forEach(lineData => {
             if (!lineData) return;
 
-            const lineBlock = document.createElement("div");
-            lineBlock.className = "line-block";
+            const row = document.createElement("tr");
 
-            const lineName = document.createElement("div");
-            lineName.className = "line-name-display line-" + lineData.lineId;
-            lineName.innerHTML = lineData.lineName;
-            lineBlock.appendChild(lineName);
+            const nameCell = document.createElement("td");
+            nameCell.className = "line-name-display";
+            nameCell.innerHTML = lineData.lineName || "";
+            row.appendChild(nameCell);
 
-            (lineData.statuses || []).forEach(status => {
-                const statusDiv = document.createElement("div");
-                statusDiv.className = "status-item";
+            const statusCell = document.createElement("td");
+            statusCell.className = "line-statuses";
 
-                const statusBadge = document.createElement("span");
-                statusBadge.className = "status-badge severity-" + status.statusSeverity;
-                statusBadge.innerHTML = status.statusSeverityDescription;
-                statusDiv.appendChild(statusBadge);
-
-                if (status.reason) {
-                    const reason = document.createElement("div");
-                    reason.className = "status-reason small";
-                    reason.innerHTML = status.reason;
-                    statusDiv.appendChild(reason);
-                }
-
-                if (status.disruption) {
-                    const disruption = document.createElement("div");
-                    disruption.className = "status-disruption xsmall";
-                    if (status.disruption.description) {
-                        disruption.innerHTML = status.disruption.description;
+            const statuses = lineData.statuses || [];
+            if (statuses.length === 0) {
+                const none = document.createElement("span");
+                none.className = "status-none dimmed";
+                none.innerHTML = "No status";
+                statusCell.appendChild(none);
+            } else {
+                statuses.forEach(status => {
+                    const statusBadge = document.createElement("span");
+                    statusBadge.className = "status-badge severity-" + (status.statusSeverity || "");
+                    if (status.statusSeverity == 10) {
+                        statusBadge.className += " dimmed";
+                        nameCell.className += " dimmed";
                     }
-                    statusDiv.appendChild(disruption);
-                }
+                    statusBadge.innerHTML = status.statusSeverityDescription || "";
+                    statusCell.appendChild(statusBadge);
+                });
+            }
 
-                lineBlock.appendChild(statusDiv);
-            });
-
-            content.appendChild(lineBlock);
+            row.appendChild(statusCell);
+            table.appendChild(row);
         });
+
+        content.appendChild(table);
 
         return content;
     },

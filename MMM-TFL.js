@@ -172,10 +172,15 @@ Module.register("MMM-TFL", {
         const section = document.createElement("div");
         section.className = "tfl-section journey-section";
 
-        const header = document.createElement("div");
+        const header = document.createElement("header");
         header.className = "section-header";
         header.innerHTML = "Journey Times";
         section.appendChild(header);
+
+        const updatedTime = document.createElement("span");
+        updatedTime.className = "section-updated-time dimmed";
+        updatedTime.innerHTML = "Updated: " + (this.lastUpdate.journey ? this.formatTime(this.lastUpdate.journey) : "N/A");
+        header.appendChild(updatedTime);
 
         if (this.journeyError) {
             const error = document.createElement("div");
@@ -263,10 +268,15 @@ Module.register("MMM-TFL", {
         const section = document.createElement("div");
         section.className = "tfl-section departures-section";
 
-        const header = document.createElement("div");
+        const header = document.createElement("header");
         header.className = "section-header";
         header.innerHTML = `${this.config.departures.stationName} departures`;
         section.appendChild(header);
+
+        const updatedTime = document.createElement("span");
+        updatedTime.className = "section-updated-time dimmed";
+        updatedTime.innerHTML = "Updated: " + (this.lastUpdate.departures ? this.formatTime(this.lastUpdate.departures) : "N/A");
+        header.appendChild(updatedTime);
 
         if (this.departuresError) {
             const error = document.createElement("div");
@@ -333,14 +343,16 @@ Module.register("MMM-TFL", {
             }
 
             const destCell = document.createElement("td");
-            destCell.className = "destination";
+            destCell.className = "destination bright";
             destCell.innerHTML = departure.towards;
             row.appendChild(destCell);
 
-            const platformCell = document.createElement("td");
-            platformCell.className = "platform";
-            platformCell.innerHTML = departure.platform || "";
-            row.appendChild(platformCell);
+            if (this.config.departures.showPlatform) {
+                const platformCell = document.createElement("td");
+                platformCell.className = "platform";
+                platformCell.innerHTML = departure.platform || "";
+                row.appendChild(platformCell);
+            }
 
             const timeCell = document.createElement("td");
             timeCell.className = "time";
@@ -362,10 +374,15 @@ Module.register("MMM-TFL", {
         const section = document.createElement("div");
         section.className = "tfl-section line-status-section";
 
-        const header = document.createElement("div");
+        const header = document.createElement("header");
         header.className = "section-header";
         header.innerHTML = "Line Status";
         section.appendChild(header);
+
+        const updatedTime = document.createElement("span");
+        updatedTime.className = "section-updated-time dimmed";
+        updatedTime.innerHTML = "Updated: " + (this.lastUpdate.lineStatus ? this.formatTime(this.lastUpdate.lineStatus) : "N/A");
+        header.appendChild(updatedTime);
 
         if (this.lineStatusError) {
             const error = document.createElement("div");
@@ -443,6 +460,8 @@ Module.register("MMM-TFL", {
                     if (status.statusSeverity == 10) {
                         statusBadge.className += " dimmed";
                         nameCell.className += " dimmed";
+                    } else {
+                        nameCell.className += " bright";
                     }
                     statusBadge.innerHTML = status.statusSeverityDescription || "";
                     statusCell.appendChild(statusBadge);

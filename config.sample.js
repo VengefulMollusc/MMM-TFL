@@ -64,6 +64,7 @@
             enabled: true,
             stationName: "Southfields",
             stationId: "940GZZLUSFS", // Southfields station
+            showPlatform: true,
             // To find station IDs, use: https://api.tfl.gov.uk/StopPoint/Search?query=STATION_NAME
             maxDepartures: 5, // Show 5 upcoming departures
             showLineBadge: false, // show line badge next to departures

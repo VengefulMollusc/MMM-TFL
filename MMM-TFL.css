@@ -180,8 +180,10 @@
 }
 
 .status-badge {
-    display: inline-block;
-    padding: 4px 10px;
+    width: 100%;
+    text-align: center;
+    display: table;
+    padding: 4px 0;
     border-radius: 3px;
     font-weight: bold;
     font-size: 14px;
@@ -207,7 +209,7 @@
 .severity-6 {
     /* Severe Delays / Reduced Service */
     background-color: #FF8C00;
-    color: white;
+    color: black;
 }
 
 .severity-5,
@@ -222,8 +224,8 @@
 .severity-1,
 .severity-0 {
     /* Suspended / Closed / Special Service */
-    background-color: #000000;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .status-reason {
